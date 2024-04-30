@@ -26,7 +26,7 @@ else
     builder.Services.AddScoped<IDbContextFactory>(provider =>
                 new SqliteDbContextFactory(connectionString));
 }
-builder.Services.AddScoped<MyDataService>();
+builder.Services.AddScoped<DataRepository>();
 
 
 var app = builder.Build();
@@ -56,7 +56,7 @@ app.MapRazorComponents<App>()
 // Ensure database creation
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<MyDataService>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<DataRepository>();
     dbContext.InitializeDatabase();
 }
 app.Run();
